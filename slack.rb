@@ -48,6 +48,10 @@ class Slack < Sensu::Handler
     get_setting('icon_url') || 'http://sensuapp.org/img/sensu_logo_large-c92d73db.png'
   end
 
+  def custom_values
+    get_setting('custom_values') || false
+  end
+
   def slack_webhook_url
     get_setting('webhook_url')
   end
@@ -112,6 +116,10 @@ class Slack < Sensu::Handler
     color.fetch(check_status.to_i)
   end
 
+  def get_custom_val(key)
+    key.to_s.split('.').inject(@event['check']) { |h, k| h[k] }
+  end
+
   def message
     {
       icon_url: icon_url,
@@ -165,6 +173,18 @@ class Slack < Sensu::Handler
             short: true
           }
         ]
+      end
+
+      if custom_values
+        custom_values.each do |params|
+          payload[:attachments][0][:fields].concat [
+            {
+              title: params['title'] || params['key'],
+              value: get_custom_val(params['key']),
+              short: params['short'] || false
+            }
+          ]
+        end
       end
 
       if show_admin_link

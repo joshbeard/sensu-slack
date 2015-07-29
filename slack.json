@@ -12,6 +12,18 @@
     "show_admin_link": true,
     "show_occurrences": true,
     "show_timestamp": true,
-    "icon_url": "http://sensuapp.org/img/sensu_logo_large-c92d73db.png"
+    "icon_url": "http://sensuapp.org/img/sensu_logo_large-c92d73db.png",
+    "custom_values": [
+      {
+        "key": "poc",
+        "title": "Point of Contact",
+        "short": true
+      },
+      {
+        "key": "team",
+        "title": "Team",
+        "short": true
+      }
+    ]
   }
 }
