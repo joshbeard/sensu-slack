@@ -1,0 +1,17 @@
+{
+  "slack": {
+    "webhook_url": "webhook url",
+    "channel": "#notifications-room, optional defaults to slack defined",
+    "message_prefix": "optional prefix - can be used for mentions",
+    "bot_name": "optional bot name, defaults to slack defined",
+    "proxy_addr": "optional - your proxy address for http proxy, like squid, i.e. 192.168.10.100",
+    "proxy_port": "optional - should be port used by proxy, i.e. 3128",
+    "markdown_enabled": false,
+    "admin_url": "optional URL to admin interface (Uchiwa?)",
+    "admin_text": "optional Text to display for admin url",
+    "show_admin_link": true,
+    "show_occurrences": true,
+    "show_timestamp": true,
+    "icon_url": "http://sensuapp.org/img/sensu_logo_large-c92d73db.png"
+  }
+}
