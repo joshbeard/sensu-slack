@@ -165,6 +165,8 @@ class Slack < Sensu::Handler
         }
       ]
     end
+
+    message
   end
 
   def payload
