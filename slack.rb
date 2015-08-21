@@ -32,6 +32,14 @@ class Slack < Sensu::Handler
     get_setting('admin_text') || 'Uchiwa'
   end
 
+  def show_command
+    get_setting('show_command') || true
+  end
+
+  def show_address
+    get_setting('show_address') || true
+  end
+
   def show_admin_link
     get_setting('show_admin_link') || true
   end
@@ -121,7 +129,7 @@ class Slack < Sensu::Handler
   end
 
   def message
-    {
+    message = {
       icon_url: icon_url,
       attachments: [
         color: color,
@@ -134,19 +142,29 @@ class Slack < Sensu::Handler
           {
             title: 'Details',
             value: tick(@event['check']['output'])
-          },
-          {
-            title: 'Command',
-            value: tick(@event['check']['command'])
-          },
-          {
-            title: 'Address',
-            value: @event['client']['address'],
-            short: true
-          },
+          }
         ]
       ]
     }
+
+    if show_command
+      message[:attachments][0][:fields].concat [
+        {
+          title: 'Command',
+          value: tick(@event['check']['command'])
+        }
+      ]
+    end
+
+    if show_address
+      message[:attachments][0][:fields].concat [
+        {
+          title: 'Address',
+          value: @event['client']['address'],
+          short: true
+        }
+      ]
+    end
   end
 
   def payload
