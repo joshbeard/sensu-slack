@@ -16,6 +16,7 @@
 
 require 'sensu-handler'
 require 'json'
+require 'time'
 
 class Slack < Sensu::Handler
   option :json_config,
@@ -33,23 +34,29 @@ class Slack < Sensu::Handler
   end
 
   def show_command
-    get_setting('show_command') || true
+    get_setting('show_command')
   end
 
   def show_address
-    get_setting('show_address') || true
+    get_setting('show_address')
   end
 
   def show_admin_link
-    get_setting('show_admin_link') || true
+    get_setting('show_admin_link')
+  end
+
+  def convert_time(time)
+    format = get_setting('time_format') || "%a %b %e @ %I:%M%P"
+    time = Time.parse(time)
+    time.strftime(format)
   end
 
   def show_occurrences
-    get_setting('show_occurrences') || true
+    get_setting('show_occurrences')
   end
 
   def show_timestamp
-    get_setting('show_timestamp') || true
+    get_setting('show_timestamp')
   end
 
   def icon_url
@@ -179,7 +186,7 @@ class Slack < Sensu::Handler
         payload[:attachments][0][:fields].concat [
           {
             title: 'Timestamp',
-            value: Time.at(@event['check']['issued']),
+            value: convert_time(@event['check']['issued']),
             short: true
           }
         ]
