@@ -186,7 +186,7 @@ class Slack < Sensu::Handler
         payload[:attachments][0][:fields].concat [
           {
             title: 'Timestamp',
-            value: convert_time(@event['check']['issued']),
+            value: convert_time(Time.at(@event['check']['issued']).to_s),
             short: true
           }
         ]
