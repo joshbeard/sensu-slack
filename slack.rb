@@ -55,6 +55,10 @@ class Slack < Sensu::Handler
     get_setting('show_occurrences')
   end
 
+  def show_subscriptions
+    get_setting('show_subscriptions')
+  end
+
   def show_timestamp
     get_setting('show_timestamp')
   end
@@ -197,6 +201,16 @@ class Slack < Sensu::Handler
           {
             title: 'Occurrences',
             value: @event['occurrences'],
+            short: true
+          }
+        ]
+      end
+
+      if show_subscriptions
+        payload[:attachments][0][:fields].concat [
+          {
+            title: 'Subscriptions',
+            value: @event['subscriptions'].join(','),
             short: true
           }
         ]
