@@ -210,7 +210,7 @@ class Slack < Sensu::Handler
         payload[:attachments][0][:fields].concat [
           {
             title: 'Subscriptions',
-            value: @event['client']['subscriptions'].join(','),
+            value: @event['client']['subscriptions'].join(', '),
             short: true
           }
         ]
