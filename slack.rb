@@ -148,7 +148,8 @@ class Slack < Sensu::Handler
         fields: [
           {
             title: action_to_string,
-            value: incident_key + ' is ' + status
+            value: incident_key + ' is ' + status,
+            unfurl_links: true
           },
           {
             title: 'Details',
