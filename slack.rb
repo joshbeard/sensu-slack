@@ -76,7 +76,7 @@ class Slack < Sensu::Handler
   end
 
   def slack_channel
-    get_setting('channel')
+    @event['client']['slack_channel'] || @event['check']['slack_channel'] || get_setting('channel')
   end
 
   def slack_proxy_addr
