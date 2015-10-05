@@ -107,6 +107,15 @@ You can do something like this:
 
 Separate each hash with a period.
 
+Channels can be specified, in order of precendence, via:
+
+* Client config (key: `slack_channel`)
+* Check config (key: `slack_channel`)
+* Handler config (key: `channel`)
+
+The channel can be provided as a string or as an array.  Using an array
+allows multiple channels to be specified.
+
 ## Testing
 
 You can test the plugin by piping event data to it.
