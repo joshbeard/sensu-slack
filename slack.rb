@@ -181,7 +181,7 @@ class Slack < Sensu::Handler
     message
   end
 
-  def payload
+  def payload(channel)
     message.tap do |payload|
       payload[:channel] = slack_channel if slack_channel
       payload[:username] = slack_bot_name if slack_bot_name
@@ -252,10 +252,14 @@ class Slack < Sensu::Handler
     http.use_ssl = true
 
     req = Net::HTTP::Post.new("#{uri.path}?#{uri.query}")
-    req.body = payload.to_json
 
-    response = http.request(req)
-    verify_response(response)
+    channels = Array(slack_channel)
+    channels.each do |channel|
+      puts "slack notification to #{channel}"
+      req.body = payload(channel).to_json
+      response = http.request(req)
+      verify_response(response)
+    end
   end
 
   def verify_response(response)
