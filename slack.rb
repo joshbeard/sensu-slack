@@ -183,7 +183,7 @@ class Slack < Sensu::Handler
 
   def payload(channel)
     message.tap do |payload|
-      payload[:channel] = slack_channel if slack_channel
+      payload[:channel] = channel
       payload[:username] = slack_bot_name if slack_bot_name
       payload[:attachments][0][:mrkdwn_in] = %w(fields text) if markdown_enabled
 
