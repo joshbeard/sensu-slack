@@ -142,6 +142,7 @@ class Slack < Sensu::Handler
   def message
     message = {
       icon_url: icon_url,
+      parse: 'none',
       attachments: [
         color: color,
         fallback: incident_key + ' is ' + status,
